@@ -1,0 +1,19 @@
+﻿@import "../variables.scss";
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 18px;
+    font-family: 'Montserrat';
+
+    * {
+        font-family: inherit;
+    }
+}
+
+body {
+    background-color: $bg-color;
+}

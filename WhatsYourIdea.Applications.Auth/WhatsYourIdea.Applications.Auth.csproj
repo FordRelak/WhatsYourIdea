@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -6,6 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WhatsYourIdea.Applications.DTO\WhatsYourIdea.Applications.DTO.csproj" />
     <ProjectReference Include="..\WhatsYourIdea.Infrastructure\WhatsYourIdea.Infrastructure.csproj" />
   </ItemGroup>
 

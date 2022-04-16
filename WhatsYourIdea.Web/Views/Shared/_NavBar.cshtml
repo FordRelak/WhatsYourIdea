@@ -1,0 +1,38 @@
+﻿<section class="navbar-color">
+    <nav class="navbar navbar-expand-md navbar-light">
+        <div class="container-fluid">
+            <ul class="navbar-nav me-auto mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">New</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Popular</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Hot</a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-light" type="submit">Search</button>
+            </form>
+            <ul class="navbar-nav ms-auto mb-lg-0">
+                @if(!User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item align-self-center">
+                        <a class="nav-link" href="#">Sign In</a>
+                    </li>
+                    <li class="nav-item align-self-center">
+                        <a class="nav-link" href="#">Login</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item fs-1">
+                        <a class="nav-link px-0" href="#"><i class="bi bi-box-arrow-in-right"></i></a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </nav>
+</section>

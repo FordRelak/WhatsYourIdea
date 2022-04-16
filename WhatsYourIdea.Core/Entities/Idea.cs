@@ -12,5 +12,6 @@ namespace Domain.Entities
         public IList<Tag> Tags { get; set; }
         public IList<Comment> Comments { get; set; }
         public IList<UserProfile> TrackingUsers { get; set; }
+        public string Hash { get; set; }
     }
 }

@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WhatsYourIdea.Infrastructure.Identity;
 
-namespace Application
+namespace WhatsYourIdea.Infrastructure
 {
-    public sealed class EfDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>, IEfDbContext
+    public sealed class EfDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, int>, IEfDbContext
     {
         #region Tables
 

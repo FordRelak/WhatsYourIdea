@@ -1,6 +1,6 @@
-﻿using Application;
+﻿using WhatsYourIdea.Infrastructure;
 
-namespace WhatsYourIdea.Application
+namespace WhatsYourIdea.Applications.Services
 {
     public class UnitOfWorkService : IUnitOfWorkService
     {
@@ -10,7 +10,6 @@ namespace WhatsYourIdea.Application
         private readonly Lazy<ICommentService> _commentService;
         private readonly Lazy<IIdeaService> _ideaService;
         private readonly Lazy<ITagService> _tagService;
-        private readonly Lazy<IUserService> _userService;
 
         public IAuthorService AuthorService => _authorService.Value;
 
@@ -20,8 +19,6 @@ namespace WhatsYourIdea.Application
 
         public ITagService TagService => _tagService.Value;
 
-        public IUserService UserService => _userService.Value;
-
         public UnitOfWorkService(IUnitOfWorkInfrastructure unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -29,7 +26,6 @@ namespace WhatsYourIdea.Application
             _commentService = new Lazy<ICommentService>(() => new CommentService(_unitOfWork.CommentRepository));
             _ideaService = new Lazy<IIdeaService>(() => new IdeaService(_unitOfWork.IdeaRepository));
             _tagService = new Lazy<ITagService>(() => new TagService(_unitOfWork.TagRepository));
-            _userService = new Lazy<IUserService>(() => new UserService(_unitOfWork.UserRepository));
         }
     }
 }

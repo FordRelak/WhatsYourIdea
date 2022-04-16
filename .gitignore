@@ -859,3 +859,5 @@ dist
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/csharp,visualstudiocode,visualstudio,node,aspnetcore
+*.bundle.js
+WhatsYourIdea.Web/wwwroot/bundles/

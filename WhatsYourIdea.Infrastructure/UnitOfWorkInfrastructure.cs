@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Storage;
 using WhatsYourIdea.Infrastructure.Identity;
 
-namespace Application
+namespace WhatsYourIdea.Infrastructure
 {
     public sealed class UnitOfWorkInfrastructure : IUnitOfWorkInfrastructure
     {
@@ -51,7 +51,7 @@ namespace Application
 
         public async Task CommitTransactionAsync()
         {
-            if (_transaction is not null)
+            if(_transaction is not null)
             {
                 await _transaction.CommitAsync();
                 await _transaction.DisposeAsync();
@@ -60,7 +60,7 @@ namespace Application
 
         public async Task RollbackAsync()
         {
-            if (_transaction is not null)
+            if(_transaction is not null)
             {
                 await _transaction.RollbackAsync();
                 await _transaction.DisposeAsync();

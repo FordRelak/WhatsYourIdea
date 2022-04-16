@@ -11,7 +11,7 @@ namespace Application.Configurations
 
         public void Configure(EntityTypeBuilder<Comment> builder)
         {
-            builder.ToTable("comment");
+            builder.ToTable("comments");
             builder.HasKey(c => c.Id);
             builder.Property(c => c.Id).IsRequired();
             AddUserConfig(builder);
@@ -20,7 +20,7 @@ namespace Application.Configurations
 
         private static void AddIdeaConfig(EntityTypeBuilder<Comment> builder)
         {
-            builder.Property<Guid>(FK_COMMENT_IDEA);
+            builder.Property<int>(FK_COMMENT_IDEA);
             builder.HasOne(c => c.Idea)
                    .WithMany(i => i.Comments)
                    .HasForeignKey(FK_COMMENT_IDEA);
@@ -28,7 +28,7 @@ namespace Application.Configurations
 
         private static void AddUserConfig(EntityTypeBuilder<Comment> builder)
         {
-            builder.Property<Guid>(FK_COMMENT_USER);
+            builder.Property<int>(FK_COMMENT_USER);
             builder.HasOne(c => c.User)
                    .WithMany(u => u.Comments)
                    .HasForeignKey(FK_COMMENT_USER);

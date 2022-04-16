@@ -8,7 +8,7 @@ namespace Application.Configurations
     {
         public void Configure(EntityTypeBuilder<Tag> builder)
         {
-            builder.ToTable("tag");
+            builder.ToTable("tags");
             builder.HasKey(t => t.Id);
             builder.Property(t => t.Id).IsRequired();
         }

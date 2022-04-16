@@ -1,0 +1,17 @@
+﻿@import "variables.scss";
+
+.navbar-blue {
+    background-color: $nav-color;
+}
+
+.avatar{
+    height: 55px;
+    width: auto;
+    border-radius: 10px;
+}
+
+.cut-text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

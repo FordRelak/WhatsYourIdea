@@ -3,7 +3,7 @@ using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using WhatsYourIdea.Infrastructure.Identity;
 
-namespace Application
+namespace WhatsYourIdea.Infrastructure
 {
     public interface IUnitOfWorkInfrastructure
     {

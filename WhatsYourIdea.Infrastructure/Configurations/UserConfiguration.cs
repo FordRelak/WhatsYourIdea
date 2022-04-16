@@ -8,7 +8,7 @@ namespace Application.Configurations
     {
         public void Configure(EntityTypeBuilder<UserProfile> builder)
         {
-            builder.ToTable("userprofile");
+            builder.ToTable("userprofiles");
             builder.HasKey(u => u.Id);
             builder.Property(u => u.Id).IsRequired();
         }

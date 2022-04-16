@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
-namespace Application
+namespace WhatsYourIdea.Infrastructure
 {
     public sealed class Repository<Entity> : IRepository<Entity> where Entity : BaseEntity
     {
@@ -43,7 +43,7 @@ namespace Application
             return query;
         }
 
-        public async Task<Entity> GetAsync(Guid id)
+        public async Task<Entity> GetAsync(int id)
         {
             return await _db.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
         }
@@ -87,9 +87,9 @@ namespace Application
 
         public async Task<Entity> AddOrUpdateAsync(Entity entity)
         {
-            if(entity.Id == Guid.Empty)
+            if(entity.Id == default)
                 _context.Add(entity);
-            else 
+            else
                 _context.Update(entity);
 
             await _context.SaveChangesAsync();

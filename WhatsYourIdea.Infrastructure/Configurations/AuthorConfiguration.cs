@@ -6,11 +6,11 @@ namespace Application.Configurations
 {
     public class AuthorConfiguration : IEntityTypeConfiguration<Author>
     {
-        private const string FK_USER_AUTHOR = "fk_author_user";
+        private const string FK_USER_AUTHOR = "userProfileId";
 
         public void Configure(EntityTypeBuilder<Author> builder)
         {
-            builder.ToTable("author");
+            builder.ToTable("authors");
             builder.HasKey(a => a.Id);
             builder.Property(a => a.Id).IsRequired();
 
@@ -19,10 +19,10 @@ namespace Application.Configurations
 
         private static void AddUserProfileConfig(EntityTypeBuilder<Author> builder)
         {
-            builder.Property<Guid>(FK_USER_AUTHOR);
+            builder.Property<int>(FK_USER_AUTHOR);
             builder.HasOne(a => a.UserProfile)
                    .WithOne(u => u.Author)
-                   .HasForeignKey(FK_USER_AUTHOR);
+                   .HasForeignKey<Author>(FK_USER_AUTHOR);
         }
     }
 }

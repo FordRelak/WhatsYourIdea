@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <script src="~/bundles/vendor.bundle.js"></script>
+    <script src="~/bundles/main.bundle.js"></script>
+    @RenderSection("head", false)
+</head>
+<body>
+    @await Html.PartialAsync("_NavBar")
+    <main>
+        @RenderBody()
+    </main>
+
+    @await RenderSectionAsync("footer", false)
+    @await RenderSectionAsync("script", false)
+</body>
+</html>

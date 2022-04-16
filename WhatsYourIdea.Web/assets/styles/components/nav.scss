@@ -1,0 +1,19 @@
+﻿@import "../variables.scss";
+
+.navbar-color {
+    background-color: $nav-color;
+}
+
+nav.navbar {
+    height: 90px;
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    color: white;
+
+    a {
+        color: inherit;
+    }
+
+
+}

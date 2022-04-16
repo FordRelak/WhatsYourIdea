@@ -6,15 +6,14 @@ namespace Application.Configurations;
 
 internal class IdeaConfiguration : IEntityTypeConfiguration<Idea>
 {
-    private const string FK_IDEA_AUTHOR = "fk_idea_author";
-    private const string FK_IDEA_COMMENT = "fk_idea_comment";
+    private const string FK_IDEA_AUTHOR = "authorId";
     private const string IDEA_USER_TABLE_NAME = "idea_user";
     private const string IDEA_TAG_TABLE_NAME = "idea_tag";
 
     public void Configure(EntityTypeBuilder<Idea> builder)
     {
         builder
-            .ToTable("idea");
+            .ToTable("ideas");
 
         builder
             .HasKey(k => k.Id);
@@ -23,9 +22,11 @@ internal class IdeaConfiguration : IEntityTypeConfiguration<Idea>
             .Property(p => p.Id)
             .IsRequired();
 
+        builder.Property(p => p.Hash).IsRequired();
+        builder.HasIndex(p => p.Hash).IsUnique();
+
         AddAuthorConfig(builder);
         AddTagsConfig(builder);
-        AddCommentsConfig(builder);
         AddTrackingUsersConfig(builder);
     }
 
@@ -34,14 +35,6 @@ internal class IdeaConfiguration : IEntityTypeConfiguration<Idea>
         builder.HasMany(i => i.TrackingUsers)
                .WithMany(u => u.TrackedIdeas)
                .UsingEntity(j => j.ToTable(IDEA_USER_TABLE_NAME));
-    }
-
-    private static void AddCommentsConfig(EntityTypeBuilder<Idea> builder)
-    {
-        builder.Property<Guid>(FK_IDEA_COMMENT);
-        builder.HasMany(i => i.Comments)
-               .WithOne(c => c.Idea)
-               .HasForeignKey(FK_IDEA_COMMENT);
     }
 
     private static void AddTagsConfig(EntityTypeBuilder<Idea> builder)
@@ -53,7 +46,7 @@ internal class IdeaConfiguration : IEntityTypeConfiguration<Idea>
 
     private static void AddAuthorConfig(EntityTypeBuilder<Idea> builder)
     {
-        builder.Property<Guid>(FK_IDEA_AUTHOR);
+        builder.Property<int>(FK_IDEA_AUTHOR);
         builder.HasOne(i => i.Author)
                .WithMany(a => a.Ideas)
                .HasForeignKey(FK_IDEA_AUTHOR);

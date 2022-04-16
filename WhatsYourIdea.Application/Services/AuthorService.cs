@@ -1,7 +1,7 @@
 ﻿using Domain;
 using Domain.Entities;
 
-namespace WhatsYourIdea.Application
+namespace WhatsYourIdea.Applications.Services
 {
     public class AuthorService : IAuthorService
     {
