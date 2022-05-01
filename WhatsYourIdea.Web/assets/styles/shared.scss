@@ -1,17 +1,62 @@
-﻿@import "variables.scss";
+﻿@import "./variables.scss";
 
 .navbar-blue {
     background-color: $nav-color;
 }
 
-.avatar{
+.avatar {
     height: 55px;
-    width: auto;
+    width: 55px;
     border-radius: 10px;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
 }
 
-.cut-text {
+.cut-one-line-text {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+}
+
+.cut-three-line-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.tag {
+    background-color: #E5E5E5;
+    color: #375CB8;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    padding: 0 10px;
+}
+
+.icons {
+    color: $icon-color;
+    font-size: 0.8rem;
+}
+
+form {
+    .ex-input {
+        background-color: unset;
+        color: white;
+        border-color: white;
+    }
+
+    .ex-label {
+        color: white;
+    }
+
+    .error{
+        color: $error-color;
+        font-size: 0.8rem;
+    }
 }

@@ -7,7 +7,8 @@ namespace WhatsYourIdea.Applications.DTO.Utils
     {
         public AutoMapperProfile()
         {
-            CreateMap<UserDto, ApplicationUser>();
+            CreateMap<UserDto, ApplicationUser>()
+                .ForMember(dst => dst.UserName, opt => opt.MapFrom(src => src.Login));
         }
     }
 }

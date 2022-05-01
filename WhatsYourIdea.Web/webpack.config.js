@@ -5,7 +5,8 @@ module.exports = {
     entry: {
         main: path.resolve(__dirname, './assets/index.js'),
         vendor: path.resolve(__dirname, './assets/vendor.js'),
-        home: path.resolve(__dirname, './assets/styles/pages/home/home.js'),
+        home: path.resolve(__dirname, './assets/home.js'),
+        idea: path.resolve(__dirname, './assets/idea.js'),
     },
     module: {
         rules: [

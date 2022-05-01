@@ -45,5 +45,11 @@ namespace WhatsYourIdea.Web.Controllers
             }
             return View(model);
         }
+
+        [HttpGet("login")]
+        public async Task<IActionResult> Login()
+        {
+            return View(new LoginViewModel());
+        }
     }
 }

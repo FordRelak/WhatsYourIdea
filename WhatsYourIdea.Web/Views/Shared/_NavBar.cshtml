@@ -1,15 +1,15 @@
 ﻿<section class="navbar-color">
     <nav class="navbar navbar-expand-md navbar-light">
         <div class="container-fluid">
-            <ul class="navbar-nav me-auto mb-lg-0">
+            <ul class="navbar-nav me-auto mb-lg-0 align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller=Home asp-action=Index><i class="fs-5 bi bi-house-door"></i></a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">New</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Popular</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Hot</a>
                 </li>
             </ul>
             <form class="d-flex">
@@ -20,10 +20,10 @@
                 @if(!User.Identity.IsAuthenticated)
                 {
                     <li class="nav-item align-self-center">
-                        <a class="nav-link" href="#">Sign In</a>
+                        <a class="nav-link" asp-controller=Account asp-action=Register>Sign In</a>
                     </li>
                     <li class="nav-item align-self-center">
-                        <a class="nav-link" href="#">Login</a>
+                        <a class="nav-link" asp-controller=Account asp-action=Login>Login</a>
                     </li>
                 }
                 else
