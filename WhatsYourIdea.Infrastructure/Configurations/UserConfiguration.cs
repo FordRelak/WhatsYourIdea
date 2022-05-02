@@ -11,6 +11,8 @@ namespace Application.Configurations
             builder.ToTable("userprofiles");
             builder.HasKey(u => u.Id);
             builder.Property(u => u.Id).IsRequired();
+
+            builder.Navigation(u => u.Author).AutoInclude();
         }
     }
 }

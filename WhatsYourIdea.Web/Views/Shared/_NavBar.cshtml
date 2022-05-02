@@ -29,7 +29,10 @@
                 else
                 {
                     <li class="nav-item fs-1">
-                        <a class="nav-link px-0" href="#"><i class="bi bi-box-arrow-in-right"></i></a>
+                        <a class="nav-link px-0" asp-controller=IdeaEditor asp-action=Index><i class="bi bi-plus-square"></i></a>
+                    </li>
+                    <li class="nav-item fs-1 ms-5">
+                        <a class="nav-link px-0" asp-controller=Account asp-action=Logout><i class="bi bi-box-arrow-in-right"></i></a>
                     </li>
                 }
             </ul>

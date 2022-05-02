@@ -23,6 +23,8 @@ namespace Application.Configurations
             builder.HasOne(a => a.UserProfile)
                    .WithOne(u => u.Author)
                    .HasForeignKey<Author>(FK_USER_AUTHOR);
+
+            builder.Navigation(x => x.UserProfile).AutoInclude();
         }
     }
 }

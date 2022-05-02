@@ -22,6 +22,12 @@ namespace WhatsYourIdea.Infrastructure.Extensions
                 options.SignIn.RequireConfirmedPhoneNumber = false;
 
                 options.User.RequireUniqueEmail = true;
+
+                options.Password.RequiredLength = 1;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
             })
                 .AddEntityFrameworkStores<EfDbContext>();
 

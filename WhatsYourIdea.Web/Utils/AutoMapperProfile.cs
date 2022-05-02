@@ -9,6 +9,7 @@ namespace WhatsYourIdea.Web.Utils
         public AutoMapperProfile()
         {
             CreateMap<RegisterViewModel, UserDto>();
+            CreateMap<LoginViewModel, UserDto>();
         }
     }
 }

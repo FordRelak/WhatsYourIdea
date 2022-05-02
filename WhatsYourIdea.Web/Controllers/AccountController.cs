@@ -34,7 +34,7 @@ namespace WhatsYourIdea.Web.Controllers
 
             var userDto = _mapper.Map<UserDto>(model);
             var result = await _userService.CreateAsync(userDto);
-            if (result.IsSuccess)
+            if(result.IsSuccess)
             {
                 await _authService.SignInAsync(userDto);
                 return RedirectToAction("Index", "Home");
@@ -47,9 +47,32 @@ namespace WhatsYourIdea.Web.Controllers
         }
 
         [HttpGet("login")]
-        public async Task<IActionResult> Login()
+        public IActionResult Login()
         {
             return View(new LoginViewModel());
+        }
+
+        [HttpPost("login")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if(!ModelState.IsValid)
+                return View(model);
+
+            var result = await _authService.SignInAsync(_mapper.Map<UserDto>(model));
+            if(!result.IsSuccess)
+            {
+                ModelState.AddModelError(string.Empty, "Неверный логин или пароль");
+                return View(model);
+            }
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
+        [HttpGet("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await _authService.SignOutAsync();
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
     }
 }

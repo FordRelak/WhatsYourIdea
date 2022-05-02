@@ -6,7 +6,7 @@
     <title>@ViewBag.Title</title>
     <script src="~/bundles/vendor.bundle.js"></script>
     <script src="~/bundles/main.bundle.js"></script>
-    @RenderSection("head", false)
+    @await RenderSectionAsync("head", false)
 </head>
 <body>
     @await Html.PartialAsync("_NavBar")

@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\WhatsYourIdea.Applications.Auth\WhatsYourIdea.Applications.Auth.csproj" />
     <ProjectReference Include="..\WhatsYourIdea.Applications.DTO\WhatsYourIdea.Applications.DTO.csproj" />
+    <ProjectReference Include="..\WhatsYourIdea.Application\WhatsYourIdea.Applications.Services.csproj" />
   </ItemGroup>
 
 </Project>

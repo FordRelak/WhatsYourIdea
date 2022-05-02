@@ -6,8 +6,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\bundles\plugins\**" />
+    <Compile Remove="wwwroot\bundles\skins\**" />
+    <Compile Remove="wwwroot\bundles\themes\**" />
+    <Content Remove="wwwroot\bundles\plugins\**" />
+    <Content Remove="wwwroot\bundles\skins\**" />
+    <Content Remove="wwwroot\bundles\themes\**" />
+    <EmbeddedResource Remove="wwwroot\bundles\plugins\**" />
+    <EmbeddedResource Remove="wwwroot\bundles\skins\**" />
+    <EmbeddedResource Remove="wwwroot\bundles\themes\**" />
+    <None Remove="wwwroot\bundles\plugins\**" />
+    <None Remove="wwwroot\bundles\skins\**" />
+    <None Remove="wwwroot\bundles\themes\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="wwwroot\bundles\" />
+    <Folder Include="wwwroot\ideafiles\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
@@ -18,6 +33,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="TinyMCE" Version="6.0.2" />
   </ItemGroup>
 
   <ItemGroup>

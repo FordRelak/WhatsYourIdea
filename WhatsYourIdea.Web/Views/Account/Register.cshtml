@@ -4,6 +4,7 @@
 
 <section class="container mt-3">
     <form asp-controller=Account asp-action=Register asp-antiforgery=true>
+        <div asp-validation-summary=ModelOnly class="error"></div>
         <div class="mb-3">
             <label class="form-label ex-label" asp-for=Login></label>
             <input class="form-control ex-input" asp-for=Login>

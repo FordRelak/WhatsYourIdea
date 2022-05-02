@@ -12,7 +12,7 @@ services.AddInfrastructure(configuration);
 services.AddInfrastructureAuth(configuration);
 services.AddDatabaseDeveloperPageExceptionFilter();
 
-services.AddApplication(configuration);
+services.AddApplication(configuration, enviroment);
 services.AddApplicationAuth(configuration);
 services.AddApplicationAutoMapper(configuration);
 services.AddHasher(configuration);

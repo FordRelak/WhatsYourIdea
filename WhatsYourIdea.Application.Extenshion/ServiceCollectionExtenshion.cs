@@ -1,14 +1,32 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WhatsYourIdea.Applications.Auth;
 using WhatsYourIdea.Applications.DTO;
+using WhatsYourIdea.Applications.Services.Configurations;
+using WhatsYourIdea.Applications.Services.Interfaces;
+using WhatsYourIdea.Applications.Services.Services;
 
 namespace WhatsYourIdea.Application.Extension
 {
     public static class ServiceCollectionExtenshion
     {
-        public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddApplication(
+            this IServiceCollection services,
+            IConfiguration configuration,
+            IWebHostEnvironment environment)
         {
+            services.Configure<FileStorageSettings>(config =>
+            {
+                config.IdeaImagesFolderPath = Path.Combine(
+                    environment.WebRootPath,
+                    configuration.GetSection("FileStorageSettings:ideafilesFileFolder").Value
+                    );
+                config.IdeaImagesFolderName = configuration.GetSection("FileStorageSettings:ideafilesFileFolder").Value;
+            });
+
+            services.AddSingleton<IFileStorageService, FileStorageService>();
+
             return services;
         }
 
@@ -29,6 +47,7 @@ namespace WhatsYourIdea.Application.Extension
 
             return services;
         }
+
         public static IServiceCollection AddApplicationAutoMapper(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddAutoMapper(config =>
