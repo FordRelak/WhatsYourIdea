@@ -1,4 +1,7 @@
-﻿using WhatsYourIdea.Infrastructure;
+﻿using AutoMapper;
+using WhatsYourIdea.Applications.Auth;
+using WhatsYourIdea.Applications.Hasher;
+using WhatsYourIdea.Infrastructure;
 
 namespace WhatsYourIdea.Applications.Services
 {
@@ -19,13 +22,23 @@ namespace WhatsYourIdea.Applications.Services
 
         public ITagService TagService => _tagService.Value;
 
-        public UnitOfWorkService(IUnitOfWorkInfrastructure unitOfWork)
+        public UnitOfWorkService(IUnitOfWorkInfrastructure unitOfWork,
+            IUserService userService,
+            IMapper mapper,
+            HasherService hasherService)
         {
             _unitOfWork = unitOfWork;
             _authorService = new Lazy<IAuthorService>(() => new AuthorService(_unitOfWork.AuthorRepository));
             _commentService = new Lazy<ICommentService>(() => new CommentService(_unitOfWork.CommentRepository));
-            _ideaService = new Lazy<IIdeaService>(() => new IdeaService(_unitOfWork.IdeaRepository));
-            _tagService = new Lazy<ITagService>(() => new TagService(_unitOfWork.TagRepository));
+            _ideaService = new Lazy<IIdeaService>(() => new IdeaService(
+                _unitOfWork.IdeaRepository,
+                userService,
+                mapper,
+                _unitOfWork.TagRepository,
+                hasherService));
+            _tagService = new Lazy<ITagService>(() => new TagService(
+                _unitOfWork.TagRepository,
+                mapper));
         }
     }
 }

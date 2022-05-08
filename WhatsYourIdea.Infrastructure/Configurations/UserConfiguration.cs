@@ -13,6 +13,8 @@ namespace Application.Configurations
             builder.Property(u => u.Id).IsRequired();
 
             builder.Navigation(u => u.Author).AutoInclude();
+            builder.Navigation(u => u.TrackedIdeas).AutoInclude();
+            builder.Navigation(u => u.Comments).AutoInclude();
         }
     }
 }

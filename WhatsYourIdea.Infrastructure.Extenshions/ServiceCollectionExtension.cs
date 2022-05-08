@@ -9,7 +9,10 @@ namespace WhatsYourIdea.Infrastructure.Extensions
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<EfDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("PosgresConnectionString")));
+            services.AddDbContext<EfDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("PosgresConnectionString"))
+                                                                 .EnableDetailedErrors()
+                                                                 .EnableSensitiveDataLogging()
+                                                                 .EnableSensitiveDataLogging());
             services.AddScoped<IUnitOfWorkInfrastructure, UnitOfWorkInfrastructure>();
             return services;
         }

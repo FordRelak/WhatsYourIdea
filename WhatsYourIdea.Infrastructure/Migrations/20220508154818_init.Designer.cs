@@ -12,8 +12,8 @@ using WhatsYourIdea.Infrastructure;
 namespace WhatsYourIdea.Infrastructure.Migrations
 {
     [DbContext(typeof(EfDbContext))]
-    [Migration("20220416180650_ChangeIdType")]
-    partial class ChangeIdType
+    [Migration("20220508154818_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,11 +33,11 @@ namespace WhatsYourIdea.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTimeOffset>("Created")
+                    b.Property<DateTime>("Created")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created");
 
-                    b.Property<DateTimeOffset>("Updated")
+                    b.Property<DateTime>("Updated")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("updated");
 
@@ -64,7 +64,7 @@ namespace WhatsYourIdea.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTimeOffset>("Created")
+                    b.Property<DateTime>("Created")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created");
 
@@ -72,7 +72,7 @@ namespace WhatsYourIdea.Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("text");
 
-                    b.Property<DateTimeOffset>("Updated")
+                    b.Property<DateTime>("Updated")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("updated");
 
@@ -105,7 +105,7 @@ namespace WhatsYourIdea.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTimeOffset>("Created")
+                    b.Property<DateTime>("Created")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created");
 
@@ -114,13 +114,16 @@ namespace WhatsYourIdea.Infrastructure.Migrations
                         .HasColumnName("full_desctiption");
 
                     b.Property<string>("Hash")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("hash");
 
                     b.Property<bool>("IsPrivate")
                         .HasColumnType("boolean")
                         .HasColumnName("is_private");
+
+                    b.Property<bool>("IsVerifed")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_verifed");
 
                     b.Property<string>("ShortDescription")
                         .HasColumnType("text")
@@ -130,7 +133,7 @@ namespace WhatsYourIdea.Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("title");
 
-                    b.Property<DateTimeOffset>("Updated")
+                    b.Property<DateTime>("Updated")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("updated");
 
@@ -160,7 +163,7 @@ namespace WhatsYourIdea.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTimeOffset>("Created")
+                    b.Property<DateTime>("Created")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created");
 
@@ -168,14 +171,34 @@ namespace WhatsYourIdea.Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("name");
 
-                    b.Property<DateTimeOffset>("Updated")
+                    b.Property<DateTime>("Updated")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("updated");
 
                     b.HasKey("Id")
                         .HasName("pk_tags");
 
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("ix_tags_name");
+
                     b.ToTable("tags", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Created = new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "tag_1",
+                            Updated = new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Created = new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "tag_2",
+                            Updated = new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.UserProfile", b =>
@@ -187,11 +210,11 @@ namespace WhatsYourIdea.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTimeOffset>("Created")
+                    b.Property<DateTime>("Created")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created");
 
-                    b.Property<DateTimeOffset>("Updated")
+                    b.Property<DateTime>("Updated")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("updated");
 

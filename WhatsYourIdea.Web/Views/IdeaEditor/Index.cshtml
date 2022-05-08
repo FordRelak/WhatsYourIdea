@@ -1,12 +1,32 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@section script{
-    <script src="~/bundles/editor.bundle.js"></script>
+﻿@model EditorViewModel
+@section head{
+<script src="~/bundles/editor.bundle.js"></script>
 }
 
 <section class="container">
-    <div class="">
-        <textarea id="mytextarea" class=""></textarea>
-    </div>
+    <form asp-controller=IdeaEditor asp-action=Save method="post" class="my-3">
+        <div class="mb-3">
+            <label class="form-label ex-label" asp-for=Title></label>
+            <input class="form-control ex-input" asp-for=Title>
+            <span class="error" asp-validation-for=Title></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label ex-label" asp-for=SubTitle></label>
+            <textarea class="form-control" asp-for=SubTitle rows="3"></textarea>
+            <span class="error" asp-validation-for=SubTitle></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label ex-label" asp-for=NewTags></label>
+            <input class="form-control ex-input" asp-for=NewTags>
+        </div>
+        <div class="mb-3">
+            <select class="form-select" multiple size="3" asp-items="Model.Tags" asp-for=TagIds>
+            </select>
+        </div>
+        <div class="editor mb-3">
+            <textarea id="mytextarea" class="" asp-for=Text></textarea>
+            <span class="error" asp-validation-for=Text></span>
+        </div>
+        <button class="btn btn-outline-light w-100 js-save" type="button">Опубликовать</button>
+    </form>
 </section>

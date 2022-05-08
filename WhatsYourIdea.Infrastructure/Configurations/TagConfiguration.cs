@@ -11,6 +11,7 @@ namespace Application.Configurations
             builder.ToTable("tags");
             builder.HasKey(t => t.Id);
             builder.Property(t => t.Id).IsRequired();
+            builder.HasIndex(t => t.Name).IsUnique();
         }
     }
 }

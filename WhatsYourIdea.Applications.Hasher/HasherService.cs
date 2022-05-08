@@ -13,7 +13,7 @@ namespace WhatsYourIdea.Applications.Hasher
 
         public string Encode(int toEncode)
         {
-            var hashids = new Hashids(_salt);
+            var hashids = new Hashids(_salt, 10);
             return hashids.Encode(toEncode);
         }
 

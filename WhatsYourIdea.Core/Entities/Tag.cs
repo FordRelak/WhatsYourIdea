@@ -5,6 +5,6 @@ namespace Domain.Entities
     public class Tag : BaseEntity
     {
         public string Name { get; set; }
-        public IList<Idea> Ideas { get; set; }
+        public IList<Idea> Ideas { get; set; } = new List<Idea>();
     }
 }

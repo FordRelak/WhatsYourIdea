@@ -10,6 +10,8 @@ namespace WhatsYourIdea.Web.Utils
         {
             CreateMap<RegisterViewModel, UserDto>();
             CreateMap<LoginViewModel, UserDto>();
+
+            CreateMap<EditorViewModel, CreateIdeaDto>();
         }
     }
 }

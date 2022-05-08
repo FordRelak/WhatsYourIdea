@@ -23,8 +23,6 @@ namespace WhatsYourIdea.Infrastructure
                                             Func<IQueryable<Entity>, IIncludableQueryable<Entity, object>> include,
                                             Func<IQueryable<Entity>, IOrderedQueryable<Entity>> order)
         {
-            query = query.AsNoTracking();
-
             if(predicate is not null)
             {
                 query = query.Where(predicate);
@@ -43,9 +41,20 @@ namespace WhatsYourIdea.Infrastructure
             return query;
         }
 
+        public IEnumerable<Entity> Get()
+        {
+            return _db.AsQueryable();
+        }
+
         public async Task<Entity> GetAsync(int id)
         {
-            return await _db.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+            return await _db.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<Entity> GetOneAsync(Expression<Func<Entity, bool>> predicate,
+                                            Func<IQueryable<Entity>, IIncludableQueryable<Entity, object>> include= null)
+        {
+            return (await GetAsync(predicate, include, null)).FirstOrDefault();
         }
 
         public async Task<IEnumerable<Entity>> GetAsync(Expression<Func<Entity, bool>> predicate)
@@ -81,7 +90,7 @@ namespace WhatsYourIdea.Infrastructure
                                                         int pageSize)
         {
             var query = GetQuery(_db.AsQueryable(), predicate, include, order);
-            query = query.Skip(pageSize * (pageNum < 1 ? 1 : pageNum)).Take(pageSize);
+            query = query.Skip(pageSize * (pageNum - 1)).Take(pageSize);
             return await query.ToListAsync();
         }
 

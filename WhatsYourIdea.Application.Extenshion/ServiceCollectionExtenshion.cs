@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WhatsYourIdea.Applications.Auth;
 using WhatsYourIdea.Applications.DTO;
+using WhatsYourIdea.Applications.Services;
 using WhatsYourIdea.Applications.Services.Configurations;
 using WhatsYourIdea.Applications.Services.Interfaces;
 using WhatsYourIdea.Applications.Services.Services;
@@ -26,6 +27,7 @@ namespace WhatsYourIdea.Application.Extension
             });
 
             services.AddSingleton<IFileStorageService, FileStorageService>();
+            services.AddScoped<IUnitOfWorkService, UnitOfWorkService>();
 
             return services;
         }
@@ -39,7 +41,7 @@ namespace WhatsYourIdea.Application.Extension
                 options.SlidingExpiration = true;
 
                 options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(15);
+                options.ExpireTimeSpan = TimeSpan.FromHours(2);
             });
 
             services.AddScoped<AuthService>();

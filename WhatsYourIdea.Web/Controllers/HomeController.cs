@@ -1,16 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WhatsYourIdea.Applications.Services;
 
 namespace WhatsYourIdea.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public HomeController()
+        private readonly IUnitOfWorkService _unitOfWorkService;
+
+        public HomeController(IUnitOfWorkService unitOfWorkService)
         {
+            _unitOfWorkService = unitOfWorkService;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Index(string option = "new")
         {
-            return View();
+            var userName = User.Identity.Name;
+            var ideas = await _unitOfWorkService.IdeaService.GetIdeasAsync(option, userName);
+            return View(ideas);
         }
     }
 }

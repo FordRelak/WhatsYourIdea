@@ -10,7 +10,6 @@ namespace WhatsYourIdea.Infrastructure
         DbSet<Author> Authors { get; set; }
         DbSet<Tag> Tags { get; set; }
         DbSet<UserProfile> UserProfiles { get; set; }
-
-        Task SaveChangesAsync();
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

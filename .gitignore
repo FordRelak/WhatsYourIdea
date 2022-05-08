@@ -861,3 +861,4 @@ dist
 # End of https://www.toptal.com/developers/gitignore/api/csharp,visualstudiocode,visualstudio,node,aspnetcore
 *.bundle.js
 WhatsYourIdea.Web/wwwroot/bundles/
+WhatsYourIdea.Web/wwwroot/ideafiles/

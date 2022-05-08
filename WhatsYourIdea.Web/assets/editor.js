@@ -1,1 +1,2 @@
-﻿import "./js/editor.js";
+﻿import "./styles/pages/editor/editor.scss";
+import "./js/editor.js";

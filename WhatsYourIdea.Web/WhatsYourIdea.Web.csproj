@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.8" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.3">
       <PrivateAssets>all</PrivateAssets>
@@ -41,6 +42,7 @@
     <ProjectReference Include="..\WhatsYourIdea.Applications.Auth\WhatsYourIdea.Applications.Auth.csproj" />
     <ProjectReference Include="..\WhatsYourIdea.Applications.Hasher\WhatsYourIdea.Applications.Hasher.csproj" />
     <ProjectReference Include="..\WhatsYourIdea.Application\WhatsYourIdea.Applications.Services.csproj" />
+    <ProjectReference Include="..\WhatsYourIdea.Common\WhatsYourIdea.Common.csproj" />
     <ProjectReference Include="..\WhatsYourIdea.Infrastructure.Extenshions\WhatsYourIdea.Infrastructure.Extenshions.csproj" />
     <ProjectReference Include="..\WhatsYourIdea.Infrastructure\WhatsYourIdea.Infrastructure.csproj" />
   </ItemGroup>

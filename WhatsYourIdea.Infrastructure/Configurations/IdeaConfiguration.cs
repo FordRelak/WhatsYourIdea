@@ -22,7 +22,7 @@ internal class IdeaConfiguration : IEntityTypeConfiguration<Idea>
             .Property(p => p.Id)
             .IsRequired();
 
-        builder.Property(p => p.Hash).IsRequired();
+        builder.Property(p => p.Hash).IsRequired(false);
         builder.HasIndex(p => p.Hash).IsUnique();
 
         AddAuthorConfig(builder);
@@ -50,5 +50,7 @@ internal class IdeaConfiguration : IEntityTypeConfiguration<Idea>
         builder.HasOne(i => i.Author)
                .WithMany(a => a.Ideas)
                .HasForeignKey(FK_IDEA_AUTHOR);
+
+        //builder.Navigation(x => x.Author).AutoInclude();
     }
 }

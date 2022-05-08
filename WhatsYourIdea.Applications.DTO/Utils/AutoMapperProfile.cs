@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Domain.Entities;
 using WhatsYourIdea.Infrastructure.Identity;
 
 namespace WhatsYourIdea.Applications.DTO.Utils
@@ -9,6 +10,20 @@ namespace WhatsYourIdea.Applications.DTO.Utils
         {
             CreateMap<UserDto, ApplicationUser>()
                 .ForMember(dst => dst.UserName, opt => opt.MapFrom(src => src.Login));
+
+            CreateMap<CreateIdeaDto, Idea>()
+                .ForMember(dst => dst.ShortDescription, opt => opt.MapFrom(src => src.SubTitle))
+                .ForMember(dst => dst.FullDesctiption, opt => opt.MapFrom(src => src.Text))
+                .ReverseMap();
+
+            CreateMap<Idea, IdeaDto>()
+                .ForMember(dst => dst.CommentNumber, opt => opt.MapFrom(src => src.Comments.Count))
+                .ForMember(dst => dst.TrackedNumber, opt => opt.MapFrom(src => src.TrackingUsers.Count))
+                .ForMember(dst => dst.SubTitle, opt => opt.MapFrom(src => src.ShortDescription))
+                .ForMember(dst => dst.CreateDate, opt => opt.MapFrom(src => src.Created))
+                .ForMember(dst => dst.Tags, opt => opt.MapFrom(src => src.Tags));
+
+            CreateMap<Tag, TagDto>();
         }
     }
 }

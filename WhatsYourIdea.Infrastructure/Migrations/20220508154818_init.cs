@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace WhatsYourIdea.Infrastructure.Migrations
 {
-    public partial class ChangeIdType : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -32,8 +32,8 @@ namespace WhatsYourIdea.Infrastructure.Migrations
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     name = table.Column<string>(type: "text", nullable: true),
-                    updated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
+                    updated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -46,8 +46,8 @@ namespace WhatsYourIdea.Infrastructure.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    updated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
+                    updated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -114,8 +114,8 @@ namespace WhatsYourIdea.Infrastructure.Migrations
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     user_profile_id = table.Column<int>(type: "integer", nullable: false),
-                    updated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
+                    updated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -224,9 +224,10 @@ namespace WhatsYourIdea.Infrastructure.Migrations
                     full_desctiption = table.Column<string>(type: "text", nullable: true),
                     is_private = table.Column<bool>(type: "boolean", nullable: false),
                     author_id = table.Column<int>(type: "integer", nullable: false),
-                    hash = table.Column<string>(type: "text", nullable: false),
-                    updated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
+                    hash = table.Column<string>(type: "text", nullable: true),
+                    is_verifed = table.Column<bool>(type: "boolean", nullable: false),
+                    updated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -248,8 +249,8 @@ namespace WhatsYourIdea.Infrastructure.Migrations
                     text = table.Column<string>(type: "text", nullable: true),
                     fk_comment_user = table.Column<int>(type: "integer", nullable: false),
                     fk_comment_idea = table.Column<int>(type: "integer", nullable: false),
-                    updated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
+                    updated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -314,6 +315,15 @@ namespace WhatsYourIdea.Infrastructure.Migrations
                         principalTable: "userprofiles",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "tags",
+                columns: new[] { "id", "created", "name", "updated" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "tag_1", new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc) },
+                    { 2, new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "tag_2", new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc) }
                 });
 
             migrationBuilder.CreateIndex(
@@ -393,6 +403,12 @@ namespace WhatsYourIdea.Infrastructure.Migrations
                 name: "ix_ideas_hash",
                 table: "ideas",
                 column: "hash",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "ix_tags_name",
+                table: "tags",
+                column: "name",
                 unique: true);
         }
 
