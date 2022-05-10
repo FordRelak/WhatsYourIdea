@@ -14,5 +14,6 @@ namespace Domain.Entities
         public IList<UserProfile> TrackingUsers { get; set; } = new List<UserProfile>();
         public string Hash { get; set; }
         public bool IsVerifed { get; set; }
+        public string MainImagePath { get; set; }
     }
 }

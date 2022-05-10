@@ -15,6 +15,7 @@ namespace WhatsYourIdea.Infrastructure
         private readonly Lazy<IRepository<Comment>> _commentLazy;
         private readonly Lazy<IRepository<Author>> _authorLazy;
         private readonly Lazy<IRepository<Idea>> _ideaLazy;
+        private readonly Lazy<IRepository<UserProfile>> _userProfileLazy;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
         private IDbContextTransaction _transaction;
@@ -27,6 +28,7 @@ namespace WhatsYourIdea.Infrastructure
         public IRepository<Comment> CommentRepository => _commentLazy.Value;
         public IRepository<Author> AuthorRepository => _authorLazy.Value;
         public IRepository<Idea> IdeaRepository => _ideaLazy.Value;
+        public IRepository<UserProfile> UserProfileRepository => _userProfileLazy.Value;
         public UserManager<ApplicationUser> UserRepository => _userManager;
         public RoleManager<ApplicationRole> RoleRepository => _roleManager;
 
@@ -41,6 +43,7 @@ namespace WhatsYourIdea.Infrastructure
             _commentLazy = new Lazy<IRepository<Comment>>(() => new Repository<Comment>(context));
             _authorLazy = new Lazy<IRepository<Author>>(() => new Repository<Author>(context));
             _ideaLazy = new Lazy<IRepository<Idea>>(() => new Repository<Idea>(context));
+            _userProfileLazy = new Lazy<IRepository<UserProfile>>(() => new Repository<UserProfile>(context));
             _userManager = userManager;
             _roleManager = roleManager;
         }

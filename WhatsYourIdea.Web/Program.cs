@@ -8,6 +8,8 @@ var services = builder.Services;
 var enviroment = builder.Environment;
 var configuration = builder.Configuration;
 
+var isSeed = configuration.GetValue<bool>("seed");
+
 services.AddInfrastructure(configuration);
 services.AddInfrastructureAuth(configuration);
 services.AddDatabaseDeveloperPageExceptionFilter();
@@ -18,7 +20,11 @@ services.AddApplicationAutoMapper(configuration);
 services.AddHasher(configuration);
 
 services.AddAutoMapper(config => config.AddMaps(Assembly.GetExecutingAssembly()));
-services.AddRouting(config => config.LowercaseUrls = true);
+services.AddRouting(config =>
+{
+    config.LowercaseUrls = false;
+    config.LowercaseQueryStrings = false;
+});
 services.AddMvc(config => config.EnableEndpointRouting = false);
 
 var app = builder.Build();
@@ -26,7 +32,7 @@ var app = builder.Build();
 if(enviroment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
-    app.ApplyMigrations();
+    app.ApplyMigrations(isSeed);
 }
 else
 {

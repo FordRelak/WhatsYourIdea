@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WhatsYourIdea.Applications.Hasher\WhatsYourIdea.Applications.Hasher.csproj" />
     <ProjectReference Include="..\WhatsYourIdea.Infrastructure\WhatsYourIdea.Infrastructure.csproj" />
   </ItemGroup>
 

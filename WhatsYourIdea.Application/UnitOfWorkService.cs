@@ -35,7 +35,8 @@ namespace WhatsYourIdea.Applications.Services
                 userService,
                 mapper,
                 _unitOfWork.TagRepository,
-                hasherService));
+                hasherService,
+                _unitOfWork.UserProfileRepository));
             _tagService = new Lazy<ITagService>(() => new TagService(
                 _unitOfWork.TagRepository,
                 mapper));

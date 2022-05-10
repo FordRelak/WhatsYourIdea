@@ -12,8 +12,8 @@ using WhatsYourIdea.Infrastructure;
 namespace WhatsYourIdea.Infrastructure.Migrations
 {
     [DbContext(typeof(EfDbContext))]
-    [Migration("20220508161249_init2")]
-    partial class init2
+    [Migration("20220510114012_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -183,22 +183,6 @@ namespace WhatsYourIdea.Infrastructure.Migrations
                         .HasDatabaseName("ix_tags_name");
 
                     b.ToTable("tags", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Created = new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Name = "tag_1",
-                            Updated = new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Created = new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Name = "tag_2",
-                            Updated = new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.UserProfile", b =>

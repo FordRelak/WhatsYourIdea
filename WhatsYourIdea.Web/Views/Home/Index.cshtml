@@ -1,9 +1,11 @@
-﻿@section head{
+﻿@using WhatsYourIdea.Applications.DTO
+@model IEnumerable<IdeaDto>
+@section head{
 <script src="~/bundles/home.bundle.js"></script>
 }
 <section class="container">
-    @await Html.PartialAsync("_IdeaCard")
-    @await Html.PartialAsync("_IdeaCard")
-    @await Html.PartialAsync("_IdeaCard")
-    @await Html.PartialAsync("_IdeaCard")
+    @foreach (var idea in Model)
+    {
+        @await Html.PartialAsync("_IdeaCard", idea, ViewData)
+    }
 </section>

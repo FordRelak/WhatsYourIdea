@@ -4,13 +4,13 @@
 
 namespace WhatsYourIdea.Infrastructure.Migrations
 {
-    public partial class init2 : Migration
+    public partial class Init3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "avatar_file_path",
-                table: "userprofiles",
+                name: "main_image_path",
+                table: "ideas",
                 type: "text",
                 nullable: true);
         }
@@ -18,8 +18,8 @@ namespace WhatsYourIdea.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "avatar_file_path",
-                table: "userprofiles");
+                name: "main_image_path",
+                table: "ideas");
         }
     }
 }

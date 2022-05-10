@@ -9,5 +9,7 @@
         public string UserName { get; set; }
         public int[] TagIds { get; set; }
         public string NewTags { get; set; }
+        public bool IsPrivate { get; set; }
+        public string MainImagePath { get; set; }
     }
 }

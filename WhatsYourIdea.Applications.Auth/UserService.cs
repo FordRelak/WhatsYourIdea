@@ -17,13 +17,16 @@ namespace WhatsYourIdea.Applications.Auth
             _mapper = mapper;
         }
 
-        public async Task<OperationResult<IdentityError>> CreateAsync(UserDto userDto)
+        public async Task<OperationResult<IdentityError>> CreateAsync(UserAuthDto userDto)
         {
             if(userDto is null)
                 throw new ArgumentNullException(nameof(userDto));
 
             var appUser = _mapper.Map<ApplicationUser>(userDto);
-            appUser.UserProfile = new UserProfile();
+            appUser.UserProfile = new UserProfile()
+            {
+                UserName = userDto.Login
+            };
             var result = await _userManager.CreateAsync(appUser, userDto.Password);
             return CreateResult(result);
         }

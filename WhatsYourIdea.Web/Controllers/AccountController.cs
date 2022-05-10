@@ -32,7 +32,7 @@ namespace WhatsYourIdea.Web.Controllers
             if(!ModelState.IsValid)
                 return View(model);
 
-            var userDto = _mapper.Map<UserDto>(model);
+            var userDto = _mapper.Map<UserAuthDto>(model);
             var result = await _userService.CreateAsync(userDto);
             if(result.IsSuccess)
             {
@@ -59,7 +59,7 @@ namespace WhatsYourIdea.Web.Controllers
             if(!ModelState.IsValid)
                 return View(model);
 
-            var result = await _authService.SignInAsync(_mapper.Map<UserDto>(model));
+            var result = await _authService.SignInAsync(_mapper.Map<UserAuthDto>(model));
             if(!result.IsSuccess)
             {
                 ModelState.AddModelError(string.Empty, "Неверный логин или пароль");

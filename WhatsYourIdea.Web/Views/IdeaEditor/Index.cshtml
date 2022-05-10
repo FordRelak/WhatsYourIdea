@@ -4,11 +4,15 @@
 }
 
 <section class="container">
-    <form asp-controller=IdeaEditor asp-action=Save method="post" class="my-3">
+    <form asp-controller=IdeaEditor asp-action=Save method="post" class="my-3" enctype="multipart/form-data">
         <div class="mb-3">
             <label class="form-label ex-label" asp-for=Title></label>
             <input class="form-control ex-input" asp-for=Title>
             <span class="error" asp-validation-for=Title></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label ex-label" asp-for=MainImage></label>
+            <input class="form-control ex-input" asp-for=MainImage>
         </div>
         <div class="mb-3">
             <label class="form-label ex-label" asp-for=SubTitle></label>
@@ -22,6 +26,10 @@
         <div class="mb-3">
             <select class="form-select" multiple size="3" asp-items="Model.Tags" asp-for=TagIds>
             </select>
+        </div>
+        <div class="mb-3">
+            <input class="form-check-input ex-input" asp-for=IsPrivate>
+            <label class="form-check-label ex-label" asp-for=IsPrivate></label>
         </div>
         <div class="editor mb-3">
             <textarea id="mytextarea" class="" asp-for=Text></textarea>

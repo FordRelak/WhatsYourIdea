@@ -12,16 +12,30 @@ namespace WhatsYourIdea.Infrastructure
     {
         #region Tables
 
-        public DbSet<Comment> Comments { get; set; }
         public DbSet<Author> Authors { get; set; }
-        public DbSet<Tag> Tags { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         public DbSet<Idea> Ideas { get; set; }
+        public DbSet<Tag> Tags { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
 
         #endregion Tables
 
         public EfDbContext(DbContextOptions options) : base(options)
         {
+        }
+
+        public override int SaveChanges()
+        {
+            AddTime();
+
+            return base.SaveChanges();
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            AddTime();
+
+            return base.SaveChangesAsync(cancellationToken);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
@@ -39,38 +53,14 @@ namespace WhatsYourIdea.Infrastructure
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(TagConfiguration).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserConfiguration).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationUserConfiguration).Assembly);
-            AddData(modelBuilder);
         }
-
-        private static void AddData(ModelBuilder modelBuilder)
-        {
-            var date = DateTime.SpecifyKind(new DateTime(2020,1,1), DateTimeKind.Utc);
-            modelBuilder.Entity<Tag>()
-                .HasData(
-                    new Tag
-                    {
-                        Id = 1,
-                        Name = "tag_1",
-                        Created = date,
-                        Updated = date
-                    },
-                    new Tag
-                    {
-                        Id = 2,
-                        Name = "tag_2",
-                        Created = date,
-                        Updated = date
-                    }
-                );
-        }
-
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        private void AddTime()
         {
             var entries = ChangeTracker
-                .Entries()
-                .Where(e => e.Entity is BaseEntity && (
-                        e.State == EntityState.Added
-                        || e.State == EntityState.Modified));
+                               .Entries()
+                               .Where(e => e.Entity is BaseEntity && (
+                                       e.State == EntityState.Added
+                                       || e.State == EntityState.Modified));
 
             foreach(var entityEntry in entries)
             {
@@ -81,8 +71,6 @@ namespace WhatsYourIdea.Infrastructure
                     ((BaseEntity)entityEntry.Entity).Created = DateTime.UtcNow;
                 }
             }
-
-            return base.SaveChangesAsync(cancellationToken);
         }
     }
 }

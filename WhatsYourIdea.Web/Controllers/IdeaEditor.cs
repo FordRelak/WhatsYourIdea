@@ -62,6 +62,14 @@ namespace WhatsYourIdea.Web.Controllers
             var dto = _mapper.Map<CreateIdeaDto>(model);
             dto.UserName = User.Identity.Name;
 
+            if(model.MainImage is not null)
+            {
+                dto.MainImagePath = await _fileStorageService.CreateIdeaImageFileAsync(
+                    model.MainImage.OpenReadStream(),
+                    Path.GetExtension(model.MainImage.FileName),
+                    cancellationToken);
+            }
+
             await _unitOfWorkService.IdeaService.SaveIdea(dto, cancellationToken);
 
             return RedirectToAction(nameof(HomeController.Index), nameof(HomeController).CutController());

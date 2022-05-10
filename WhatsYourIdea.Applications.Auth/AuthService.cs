@@ -18,7 +18,7 @@ namespace WhatsYourIdea.Applications.Auth
             _userService = userService;
         }
 
-        public async Task<OperationResult<string>> SignInAsync(UserDto userDto)
+        public async Task<OperationResult<string>> SignInAsync(UserAuthDto userDto)
         {
             var user = await _userService.GetUserAsync(userDto.Login);
             

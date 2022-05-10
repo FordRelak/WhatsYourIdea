@@ -13,6 +13,7 @@ namespace WhatsYourIdea.Infrastructure
         UserManager<ApplicationUser> UserRepository { get; }
         RoleManager<ApplicationRole> RoleRepository { get; }
         IRepository<Idea> IdeaRepository { get; }
+        IRepository<UserProfile> UserProfileRepository { get; }
 
         Task BeginTransactionAsync();
 

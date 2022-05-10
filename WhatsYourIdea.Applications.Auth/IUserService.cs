@@ -6,7 +6,7 @@ namespace WhatsYourIdea.Applications.Auth
 {
     public interface IUserService
     {
-        Task<OperationResult<IdentityError>> CreateAsync(UserDto userDto);
+        Task<OperationResult<IdentityError>> CreateAsync(UserAuthDto userDto);
         Task<ApplicationUser> GetUserAsync(string userName);
     }
 }

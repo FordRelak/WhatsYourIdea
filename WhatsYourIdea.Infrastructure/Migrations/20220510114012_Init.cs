@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace WhatsYourIdea.Infrastructure.Migrations
 {
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -46,6 +46,7 @@ namespace WhatsYourIdea.Infrastructure.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    avatar_file_path = table.Column<string>(type: "text", nullable: true),
                     updated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -315,15 +316,6 @@ namespace WhatsYourIdea.Infrastructure.Migrations
                         principalTable: "userprofiles",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.InsertData(
-                table: "tags",
-                columns: new[] { "id", "created", "name", "updated" },
-                values: new object[,]
-                {
-                    { 1, new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "tag_1", new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc) },
-                    { 2, new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "tag_2", new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc) }
                 });
 
             migrationBuilder.CreateIndex(

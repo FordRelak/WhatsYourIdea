@@ -14,6 +14,7 @@ namespace WhatsYourIdea.Applications.Services
         private readonly IRepository<Idea> _ideaRepository;
         private readonly IMapper _mapper;
         private readonly IRepository<Tag> _tagRepository;
+        private readonly IRepository<UserProfile> _userProfileRepository;
         private readonly IUserService _userService;
 
         public IdeaService(
@@ -21,20 +22,20 @@ namespace WhatsYourIdea.Applications.Services
             IUserService userService,
             IMapper mapper,
             IRepository<Tag> tagRepository,
-            HasherService hasherService)
+            HasherService hasherService,
+            IRepository<UserProfile> userProfileRepository)
         {
             _ideaRepository = ideaRepository;
             _userService = userService;
             _mapper = mapper;
             _tagRepository = tagRepository;
+            _userProfileRepository = userProfileRepository;
             _hasherService = hasherService;
         }
 
         public async Task<IEnumerable<IdeaDto>> GetIdeasAsync(string option, string username = null)
         {
-            var ideas = new List<Idea>();
-
-            ideas = option switch
+            var ideas = option switch
             {
                 "popular" => (await GetPopularIdeas()).ToList(),
                 _ => (await GetNewIdeas()).ToList(),
@@ -79,13 +80,14 @@ namespace WhatsYourIdea.Applications.Services
 
             if(user.UserProfile.Author is not null)
             {
-                var ideas = (await _ideaRepository.GetAsync(
-                    x => x.Author.Id == user.UserProfile.Author.Id,
-                    x => x.Include(x => x.Author),
-                    x => x.OrderByDescending(x => x.Created)
-                    ));
+                var ideas = await _ideaRepository.GetAsync(
+                        x => x.Author.Id == user.UserProfile.Author.Id,
+                        x => x.Include(x => x.Author),
+                        x => x.OrderByDescending(x => x.Created)
+                    );
                 var dtos = _mapper.Map<List<IdeaDto>>(ideas);
                 SetTrackedIdeas(dtos, user);
+                return dtos;
             }
 
             return Array.Empty<IdeaDto>();
@@ -157,6 +159,87 @@ namespace WhatsYourIdea.Applications.Services
         private void UpdateIdea(CreateIdeaDto ideaDto, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
+        }
+        
+        public async Task<IEnumerable<IdeaDto>> GetPublishedIdeas(string userName)
+        {
+            var user = await _userService.GetUserAsync(userName);
+
+            if(user.UserProfile.Author is not null)
+            {
+                var ideas = await _ideaRepository.GetAsync(
+                        x => x.Author.Id == user.UserProfile.Author.Id && x.IsVerifed,
+                        x => x
+                            .Include(x => x.Author)
+                            .Include(x => x.TrackingUsers)
+                            .Include(x => x.Tags)
+                            .Include(x => x.Comments),
+                        x => x.OrderByDescending(x => x.Created)
+                    );
+
+                return _mapper.Map<List<IdeaDto>>(ideas);
+            }
+
+            return Array.Empty<IdeaDto>();
+        }
+        public async Task<IEnumerable<IdeaDto>> GetTrackedIdeas(string userName)
+        {
+            var user = await _userService.GetUserAsync(userName);
+
+            var userProfile = await _userProfileRepository.GetOneAsync(
+                    x => x.Id == user.UserProfile.Id,
+                    x => x
+                        .Include(y => y.TrackedIdeas)
+                            .ThenInclude(x => x.TrackingUsers)
+                        .Include(y => y.TrackedIdeas)
+                            .ThenInclude(x => x.Tags)
+                        .Include(y => y.TrackedIdeas)
+                            .ThenInclude(x => x.Comments)
+                        .Include(y => y.TrackedIdeas)
+                            .ThenInclude(x => x.Author)
+                );
+
+            var dtos = _mapper.Map<List<IdeaDto>>(userProfile.TrackedIdeas);
+
+            SetTrackedIdeas(dtos, user);
+
+            return dtos;
+
+        }
+        public async Task<IEnumerable<IdeaDto>> GetPrivateIdeas(string userName)
+        {
+            var user = await _userService.GetUserAsync(userName);
+
+            if(user.UserProfile.Author is not null)
+            {
+                var ideas = await _ideaRepository.GetAsync(
+                        x => x.Author.Id == user.UserProfile.Author.Id && x.IsPrivate,
+                        x => x
+                            .Include(x => x.Author)
+                            .Include(x => x.TrackingUsers)
+                            .Include(x => x.Tags)
+                            .Include(x => x.Comments),
+                        x => x.OrderByDescending(x => x.Created)
+                    );
+
+                return _mapper.Map<List<IdeaDto>>(ideas);
+            }
+
+            return Array.Empty<IdeaDto>();
+        }
+
+        public async Task<IdeaDetailedDto> GetPublicIdeaByHash(string hash)
+        {
+            var idea = await _ideaRepository.GetOneAsync(
+                x => x.Hash == hash && !x.IsPrivate && x.IsVerifed,
+                x => x.Include(x => x.Comments)
+                    .Include(x => x.Author)
+                    .Include(x => x.Tags)
+                    .Include(x => x.TrackingUsers));
+
+            var dto = _mapper.Map<IdeaDetailedDto>(idea);
+
+            return dto;
         }
     }
 }

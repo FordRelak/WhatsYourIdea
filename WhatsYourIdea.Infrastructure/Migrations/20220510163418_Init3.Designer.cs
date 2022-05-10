@@ -12,8 +12,8 @@ using WhatsYourIdea.Infrastructure;
 namespace WhatsYourIdea.Infrastructure.Migrations
 {
     [DbContext(typeof(EfDbContext))]
-    [Migration("20220508154818_init")]
-    partial class init
+    [Migration("20220510163418_Init3")]
+    partial class Init3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -125,6 +125,10 @@ namespace WhatsYourIdea.Infrastructure.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("is_verifed");
 
+                    b.Property<string>("MainImagePath")
+                        .HasColumnType("text")
+                        .HasColumnName("main_image_path");
+
                     b.Property<string>("ShortDescription")
                         .HasColumnType("text")
                         .HasColumnName("short_description");
@@ -183,22 +187,6 @@ namespace WhatsYourIdea.Infrastructure.Migrations
                         .HasDatabaseName("ix_tags_name");
 
                     b.ToTable("tags", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Created = new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Name = "tag_1",
-                            Updated = new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Created = new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Name = "tag_2",
-                            Updated = new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.UserProfile", b =>
@@ -210,6 +198,10 @@ namespace WhatsYourIdea.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("AvatarFilePath")
+                        .HasColumnType("text")
+                        .HasColumnName("avatar_file_path");
+
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created");
@@ -217,6 +209,10 @@ namespace WhatsYourIdea.Infrastructure.Migrations
                     b.Property<DateTime>("Updated")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("updated");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("text")
+                        .HasColumnName("user_name");
 
                     b.HasKey("Id")
                         .HasName("pk_userprofiles");

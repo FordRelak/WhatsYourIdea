@@ -8,8 +8,8 @@ namespace WhatsYourIdea.Web.Utils
     {
         public AutoMapperProfile()
         {
-            CreateMap<RegisterViewModel, UserDto>();
-            CreateMap<LoginViewModel, UserDto>();
+            CreateMap<RegisterViewModel, UserAuthDto>();
+            CreateMap<LoginViewModel, UserAuthDto>();
 
             CreateMap<EditorViewModel, CreateIdeaDto>();
         }

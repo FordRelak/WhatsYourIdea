@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WhatsYourIdea.Infrastructure;
@@ -11,9 +12,10 @@ using WhatsYourIdea.Infrastructure;
 namespace WhatsYourIdea.Infrastructure.Migrations
 {
     [DbContext(typeof(EfDbContext))]
-    partial class EfDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220510122445_Init2")]
+    partial class Init2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,10 +124,6 @@ namespace WhatsYourIdea.Infrastructure.Migrations
                     b.Property<bool>("IsVerifed")
                         .HasColumnType("boolean")
                         .HasColumnName("is_verifed");
-
-                    b.Property<string>("MainImagePath")
-                        .HasColumnType("text")
-                        .HasColumnName("main_image_path");
 
                     b.Property<string>("ShortDescription")
                         .HasColumnType("text")
