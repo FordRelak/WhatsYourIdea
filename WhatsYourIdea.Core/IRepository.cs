@@ -10,7 +10,9 @@ namespace Domain
     public interface IRepository<Entity> where Entity : BaseEntity
     {
         Task<Entity> AddOrUpdateAsync(Entity entity);
+
         IEnumerable<Entity> Get();
+
         Task<Entity> GetAsync(int id);
 
         Task<IEnumerable<Entity>> GetAsync(Expression<Func<Entity, bool>> predicate);
@@ -22,7 +24,9 @@ namespace Domain
         Task<IEnumerable<Entity>> GetAsync(Expression<Func<Entity, bool>> predicate, Func<IQueryable<Entity>, IIncludableQueryable<Entity, object>> include, Func<IQueryable<Entity>, IOrderedQueryable<Entity>> order, int pageNum);
 
         Task<IEnumerable<Entity>> GetAsync(Expression<Func<Entity, bool>> predicate, Func<IQueryable<Entity>, IIncludableQueryable<Entity, object>> include, Func<IQueryable<Entity>, IOrderedQueryable<Entity>> order, int pageNum, int pageSize);
+
         Task<Entity> GetOneAsync(Expression<Func<Entity, bool>> predicate, Func<IQueryable<Entity>, IIncludableQueryable<Entity, object>> include = null);
+
         Task Remove(Entity entity);
     }
 }

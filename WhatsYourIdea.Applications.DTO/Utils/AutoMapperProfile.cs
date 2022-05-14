@@ -28,15 +28,18 @@ namespace WhatsYourIdea.Applications.DTO.Utils
                 .ForMember(dst => dst.TrackedNumber, opt => opt.MapFrom(src => src.TrackingUsers.Count))
                 .ForMember(dst => dst.SubTitle, opt => opt.MapFrom(src => src.ShortDescription))
                 .ForMember(dst => dst.CreateDate, opt => opt.MapFrom(src => src.Created))
-                .ForMember(dst => dst.Author, opt => opt.MapFrom(src => src.Author.UserProfile));
+                .ForMember(dst => dst.Author, opt => opt.MapFrom(src => src.Author.UserProfile))
+                .ForMember(dst => dst.Text, opt => opt.MapFrom(src => src.FullDesctiption));
 
             CreateMap<Comment, CommentDto>();
 
             CreateMap<UserProfile, UserDto>()
-                .ForMember(dst => dst.UserName, opt => opt.MapFrom(src => src.Author.UserProfile.UserName))
-                .ForMember(dst => dst.AvatarFilePath, opt => opt.MapFrom(src => src.Author.UserProfile.AvatarFilePath));
+                .ForMember(dst => dst.UserName, opt => opt.MapFrom(src => src.UserName))
+                .ForMember(dst => dst.AvatarFilePath, opt => opt.MapFrom(src => src.AvatarFilePath));
 
             CreateMap<Tag, TagDto>();
+
+            CreateMap<ApplicationUser, UserDto>();
         }
     }
 }

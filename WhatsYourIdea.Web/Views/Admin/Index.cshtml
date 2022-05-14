@@ -1,0 +1,68 @@
+﻿@model AdminModel
+
+@{
+    ViewData["controller"] = "Admin";
+    ViewData["action"] = "CheckIdea";
+}
+
+<section class="container mt-3">
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="col nav-link active text-light bg-transparent"
+                    id="nav-private-tab" data-bs-toggle="tab"
+                    data-bs-target="#nav-private"
+                    type="button" role="tab" aria-controls="nav-private" aria-selected="true">
+                Посты
+            </button>
+            <button class="col nav-link text-light bg-transparent"
+                    id="nav-tracked-tab" data-bs-toggle="tab"
+                    data-bs-target="#nav-tracked"
+                    type="button" role="tab" aria-controls="nav-tracked" aria-selected="false">
+                Требуется проверка
+            </button>
+            <button class="col nav-link text-light bg-transparent"
+                    id="nav-published-tab" data-bs-toggle="tab"
+                    data-bs-target="#nav-published"
+                    type="button" role="tab" aria-controls="nav-published" aria-selected="false">
+                Пользователи
+            </button>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-private" role="tabpanel" aria-labelledby="nav-private-tab">
+            @foreach(var idea in Model.PublishedIdeas)
+            {
+                @await Html.PartialAsync("_IdeaCard", idea)
+                <div class="btn-group w-100" role="group" aria-label="Basic outlined example">
+                    <a class="btn btn-outline-light" asp-controller=Admin asp-action=Delete asp-route-id=@idea.Hash>Удалить</a>
+                </div>
+            }
+        </div>
+        <div class="tab-pane fade" id="nav-tracked" role="tabpanel" aria-labelledby="nav-tracked-tab">
+            @foreach(var idea in Model.UnVerifiedIdeas)
+            {
+                @await Html.PartialAsync("_IdeaCard", idea)
+                <div class="btn-group w-100" role="group" aria-label="Basic outlined example">
+                    <a class="btn btn-outline-light" asp-controller=Admin asp-action=Delete asp-route-id=@idea.Hash>Удалить</a>
+                    <a class="btn btn-outline-light" asp-controller=Admin asp-action=Public asp-route-id=@idea.Hash>Опубликовать</a>
+                </div>
+            }
+        </div>
+        <div class="tab-pane fade row" id="nav-published" role="tabpanel" aria-labelledby="nav-published-tab">
+            <div class="row mt-3">
+                @foreach(var user in Model.Users)
+                {
+                    <div class="col-auto">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">@user.UserName</h5>
+                                <a asp-controller=Admin asp-action=DeleteUser asp-route-username=@user.UserName
+                                    class="btn btn-outline-danger">Удалить</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>

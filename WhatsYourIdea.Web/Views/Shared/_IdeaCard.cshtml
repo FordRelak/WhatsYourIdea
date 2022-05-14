@@ -1,10 +1,9 @@
 ﻿@using WhatsYourIdea.Applications.DTO
 @model IdeaDto
 @{
-    var controller = ViewData["controller"] ?? "Idea";
-    var action = ViewData["action"] ?? "";
+    var controller = ViewData["controller"] as string ?? "Idea";
+    var action = ViewData["action"] as string ?? "Index";
     var hash = Model.Hash;
-    action += $"{hash}";
 }
 <article class="card mt-3">
     <div class="py-4 px-3">
@@ -15,7 +14,7 @@
             </div>
             <div class="col-10 title">
                 <h5 class="cut-one-line-text">
-                    <a asp-controller=@controller asp-action=@action>@Model.Title</a>
+                    <a asp-controller=@controller asp-action=@action asp-route-hash=@Model.Hash>@Model.Title</a>
                 </h5>
                 <p>
                     <i>by <b>@Model.AuthorName</b>, @Model.CreateDate.ToShortDateString()</i>
@@ -27,22 +26,38 @@
             @foreach(var tag in Model.Tags)
             {
                 <div class="col-auto">
-                    <div class="tag">
-                        #@tag.Name
-                    </div>
+                    <a href="/tag/@tag.Name" class="text-decoration-none">
+                        <div class="tag">
+                            #@tag.Name
+                        </div>
+                    </a>
                 </div>
             }
         </div>
 
         <div class="row mt-2 gx-3 icons">
             <div class="col-auto">
-                @if(Model.IsTracked)
+                @if(User.Identity.IsAuthenticated)
                 {
-                    <i class="bi bi-star-fill"></i>
+                    @if(Model.IsTracked)
+                    {
+                        <a asp-controller=Idea asp-action=UnTrackIdea asp-route-hash=@Model.Hash asp-route-returnUrl=@Context.Request.Path><i class="bi bi-star-fill"></i></a>
+                    }
+                    else
+                    {
+                        <a asp-controller=Idea asp-action=TrackIdea asp-route-hash=@Model.Hash asp-route-returnUrl=@Context.Request.Path><i class="bi bi-star"></i></a>
+                    }
                 }
                 else
                 {
-                    <i class="bi bi-star"></i>
+                    @if(Model.IsTracked)
+                    {
+                        <i class="bi bi-star-fill"></i>
+                    }
+                    else
+                    {
+                        <i class="bi bi-star"></i>
+                    }
                 }
                 <span>@Model.TrackedNumber</span>
             </div>

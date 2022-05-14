@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using WhatsYourIdea.Applications.DTO;
 using WhatsYourIdea.Infrastructure.Identity;
 
@@ -43,6 +44,21 @@ namespace WhatsYourIdea.Applications.Auth
                 IsSuccess = result.Succeeded,
                 Errors = result.Errors
             };
+        }
+
+        public async Task<IEnumerable<UserDto>> GetAllUsers()
+        {
+            var users = await _userManager.Users.ToListAsync();
+            return _mapper.Map<List<UserDto>>(users);
+        }
+
+        public async Task DeleteUser(string username)
+        {
+            var user = await _userManager.FindByNameAsync(username);
+            if(user is not null)
+            {
+                await _userManager.DeleteAsync(user);
+            }
         }
     }
 }

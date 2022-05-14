@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using WhatsYourIdea.Applications.DTO;
 using WhatsYourIdea.Applications.Services;
 using WhatsYourIdea.Common;
 using WhatsYourIdea.Web.Models;
+using WhatsYourIdea.Web.ViewModels;
 
 namespace WhatsYourIdea.Web.Controllers
 {
@@ -11,10 +15,13 @@ namespace WhatsYourIdea.Web.Controllers
     public class ProfileController : Controller
     {
         private readonly IUnitOfWorkService _unitOfWorkService;
+        private readonly IMapper _mapper;
 
-        public ProfileController(IUnitOfWorkService unitOfWorkService)
+        public ProfileController(IUnitOfWorkService unitOfWorkService,
+                                 IMapper mapper)
         {
             _unitOfWorkService = unitOfWorkService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -32,14 +39,46 @@ namespace WhatsYourIdea.Web.Controllers
             };
 
             ViewData["controller"] = nameof(ProfileController).CutController();
+            ViewData["action"] = nameof(Detail);
 
             return View(model);
         }
 
-        [HttpGet("{ideaHash}")]
-        public async Task<IActionResult> GetIdeaByHash(string ideaHash)
+        [HttpGet("{hash}")]
+        public async Task<IActionResult> Detail(string hash)
         {
-            return View("Index");
+            var idea = await _unitOfWorkService.IdeaService.GetIdeaForEdit(hash, User.Identity.Name);
+            return View("Detail", idea);
+        }
+
+        private async Task<IEnumerable<SelectListItem>> GenerateSelectItem(IdeaDetailedDto idea)
+        {
+            var tags = (await _unitOfWorkService.TagService.GetTagsExceptIdsAsync(idea.Tags.Select(x => x.Id).ToArray())).ToList();
+            tags.AddRange(idea.Tags);
+            return tags.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+        }
+
+        [HttpGet("Delete/{hash}")]
+        public async Task<IActionResult> DeleteIdea(string hash)
+        {
+            await _unitOfWorkService.IdeaService.DeleteIdeaAsync(hash, User.Identity.Name);
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet("Edit/{hash}")]
+        public async Task<IActionResult> EditIdea(string hash)
+        {
+            var idea = await _unitOfWorkService.IdeaService.GetIdeaForEdit(hash, User.Identity.Name);
+            var editorVM = _mapper.Map<EditorViewModel>(idea);
+            editorVM.Tags = await GenerateSelectItem(idea);
+            return View("Editor", editorVM);
+        }
+
+        [HttpGet("Public/{hash}")]
+        public async Task<IActionResult> PublicIdea(string hash)
+        {
+            await _unitOfWorkService.IdeaService.PublicIdeaAsync(hash, User.Identity.Name);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

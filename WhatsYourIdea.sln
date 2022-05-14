@@ -34,6 +34,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatsYourIdea.Applications.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatsYourIdea.Common", "WhatsYourIdea.Common\WhatsYourIdea.Common.csproj", "{E2F35267-AAF0-48BD-9A70-832D7F8E406D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlobalExceptionHandler", "WhatsYourIdea.Application.GlobalExceptionHandler\GlobalExceptionHandler.csproj", "{475AE84F-987D-4B30-9ACA-AA2FAA8BE7BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +82,10 @@ Global
 		{E2F35267-AAF0-48BD-9A70-832D7F8E406D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2F35267-AAF0-48BD-9A70-832D7F8E406D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2F35267-AAF0-48BD-9A70-832D7F8E406D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{475AE84F-987D-4B30-9ACA-AA2FAA8BE7BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{475AE84F-987D-4B30-9ACA-AA2FAA8BE7BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{475AE84F-987D-4B30-9ACA-AA2FAA8BE7BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{475AE84F-987D-4B30-9ACA-AA2FAA8BE7BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

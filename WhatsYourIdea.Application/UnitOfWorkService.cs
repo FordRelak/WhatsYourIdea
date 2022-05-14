@@ -29,7 +29,10 @@ namespace WhatsYourIdea.Applications.Services
         {
             _unitOfWork = unitOfWork;
             _authorService = new Lazy<IAuthorService>(() => new AuthorService(_unitOfWork.AuthorRepository));
-            _commentService = new Lazy<ICommentService>(() => new CommentService(_unitOfWork.CommentRepository));
+            _commentService = new Lazy<ICommentService>(() => new CommentService(
+                _unitOfWork.CommentRepository,
+                _unitOfWork.IdeaRepository,
+                userService));
             _ideaService = new Lazy<IIdeaService>(() => new IdeaService(
                 _unitOfWork.IdeaRepository,
                 userService,

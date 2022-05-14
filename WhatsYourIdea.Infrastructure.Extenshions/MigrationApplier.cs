@@ -32,10 +32,23 @@ namespace WhatsYourIdea.Infrastructure.Extensions
         private static void SeedData()
         {
             AddUsers();
+            AddRoles().Wait();
             AddTags();
             AddIdeas();
             AddComments();
             AddTracked();
+        }
+
+        private static async Task AddRoles()
+        {
+            var roleManager = _serviceScope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
+            var userManager = _serviceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            await roleManager.CreateAsync(new ApplicationRole()
+            {
+                Name = "admin"
+            });
+            var user = await userManager.FindByNameAsync("user_1");
+            await userManager.AddToRoleAsync(user, "admin");
         }
 
         private static void AddTracked()
@@ -83,12 +96,12 @@ namespace WhatsYourIdea.Infrastructure.Extensions
 
             var idea1 = CreateIdea(1);
             idea1.IsPrivate = true;
-            idea1.IsVerifed = true;
+            idea1.IsVerifed = false;
             var idea2 = CreateIdea(2);
             idea2.IsPrivate = false;
             idea2.IsVerifed = true;
             var idea3 = CreateIdea(3);
-            idea3.IsPrivate = true;
+            idea3.IsPrivate = false;
             idea3.IsVerifed = false;
 
             db.AddRange(idea1, idea2, idea3);

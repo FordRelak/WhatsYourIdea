@@ -38,6 +38,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WhatsYourIdea.Application.Extenshion\WhatsYourIdea.Application.Extensions.csproj" />
+    <ProjectReference Include="..\WhatsYourIdea.Application.GlobalExceptionHandler\GlobalExceptionHandler.csproj" />
     <ProjectReference Include="..\WhatsYourIdea.Applications.Auth\WhatsYourIdea.Applications.Auth.csproj" />
     <ProjectReference Include="..\WhatsYourIdea.Applications.Hasher\WhatsYourIdea.Applications.Hasher.csproj" />
     <ProjectReference Include="..\WhatsYourIdea.Application\WhatsYourIdea.Applications.Services.csproj" />

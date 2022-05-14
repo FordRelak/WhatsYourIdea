@@ -1,9 +1,7 @@
 ﻿@model ProfileModel
 <section class="container mt-3">
     <div class="row">
-        <div class="col-3">
-        </div>
-        <div class="col-9">
+        <div class="col">
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <button class="col nav-link active text-light bg-transparent"
@@ -31,6 +29,10 @@
                     @foreach(var idea in Model.PrivateIdeas)
                     {
                         @await Html.PartialAsync("_IdeaCard", idea)
+                        <div class="btn-group w-100" role="group" aria-label="Basic outlined example">
+                            <a class="btn btn-outline-light" asp-controller=Profile asp-action=Delete asp-route-id=@idea.Hash>Удалить</a>
+                            <a class="btn btn-outline-light" asp-controller=Profile asp-action=Edit asp-route-id=@idea.Hash>Изменить</a>
+                        </div>
                     }
                 </div>
                 <div class="tab-pane fade" id="nav-tracked" role="tabpanel" aria-labelledby="nav-tracked-tab">
@@ -43,6 +45,9 @@
                     @foreach(var idea in Model.PublishedIdeas)
                     {
                         @await Html.PartialAsync("_IdeaCard", idea)
+                        <div class="btn-group w-100" role="group" aria-label="Basic outlined example">
+                            <a class="btn btn-outline-light" asp-controller=Profile asp-action=Delete asp-route-id=@idea.Hash>Удалить</a>
+                        </div>
                     }
                 </div>
             </div>

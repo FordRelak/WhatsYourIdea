@@ -11,7 +11,13 @@ namespace WhatsYourIdea.Web.Utils
             CreateMap<RegisterViewModel, UserAuthDto>();
             CreateMap<LoginViewModel, UserAuthDto>();
 
-            CreateMap<EditorViewModel, CreateIdeaDto>();
+            CreateMap<EditorViewModel, CreateIdeaDto>()
+                ;
+
+            CreateMap<IdeaDetailedDto, EditorViewModel>()
+                .ForMember(dst => dst.HashId, opt => opt.MapFrom(src => src.Hash))
+                .ForMember(dst => dst.Tags, opt => opt.Ignore())
+                ;
         }
     }
 }

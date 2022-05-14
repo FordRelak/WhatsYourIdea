@@ -50,7 +50,5 @@ internal class IdeaConfiguration : IEntityTypeConfiguration<Idea>
         builder.HasOne(i => i.Author)
                .WithMany(a => a.Ideas)
                .HasForeignKey(FK_IDEA_AUTHOR);
-
-        //builder.Navigation(x => x.Author).AutoInclude();
     }
 }

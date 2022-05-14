@@ -19,18 +19,18 @@ namespace WhatsYourIdea.Applications.Services.Services
             newFileName = Path.ChangeExtension(newFileName, fileExtenshion);
             var pathToFile = Path.Combine(_settings.IdeaImagesFolderPath, newFileName);
 
-            using (var fs = new FileStream(pathToFile, FileMode.Create))
+            using(var fs = new FileStream(pathToFile, FileMode.Create))
             {
                 var readCount = 0;
                 var buffer = new byte[8192];
-                
-                while ((readCount = await stream.ReadAsync(buffer, 0, buffer.Length, cancellationToken)) != 0)
+
+                while((readCount = await stream.ReadAsync(buffer, 0, buffer.Length, cancellationToken)) != 0)
                 {
                     await fs.WriteAsync(buffer, 0, readCount, cancellationToken);
                 }
             }
 
-            return Path.Combine(_settings.IdeaImagesFolderName, newFileName);
+            return Path.Combine(Path.PathSeparator + _settings.IdeaImagesFolderName, newFileName);
         }
     }
 }

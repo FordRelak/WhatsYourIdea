@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WhatsYourIdea.Application.GlobalExceptionHandler\GlobalExceptionHandler.csproj" />
     <ProjectReference Include="..\WhatsYourIdea.Applications.Auth\WhatsYourIdea.Applications.Auth.csproj" />
     <ProjectReference Include="..\WhatsYourIdea.Applications.DTO\WhatsYourIdea.Applications.DTO.csproj" />
     <ProjectReference Include="..\WhatsYourIdea.Applications.Hasher\WhatsYourIdea.Applications.Hasher.csproj" />
