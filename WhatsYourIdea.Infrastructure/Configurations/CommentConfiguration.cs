@@ -23,7 +23,8 @@ namespace Application.Configurations
             builder.Property<int>(FK_COMMENT_IDEA);
             builder.HasOne(c => c.Idea)
                    .WithMany(i => i.Comments)
-                   .HasForeignKey(FK_COMMENT_IDEA);
+                   .HasForeignKey(FK_COMMENT_IDEA)
+                   .OnDelete(DeleteBehavior.Cascade);
         }
 
         private static void AddUserConfig(EntityTypeBuilder<Comment> builder)

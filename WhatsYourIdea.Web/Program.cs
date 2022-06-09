@@ -63,3 +63,5 @@ app.UseAuthorization();
 app.UseMvcWithDefaultRoute();
 
 app.Run();
+
+public partial class Program { }

@@ -35,7 +35,7 @@ namespace WhatsYourIdea.Web.Controllers
             return View("Index", ideas);
         }
 
-        [HttpPost("Search")]
+        [HttpPost("search")]
         public async Task<IActionResult> ShowIdeaBy(string search)
         {
             if(search is null)

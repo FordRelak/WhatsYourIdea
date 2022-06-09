@@ -14,6 +14,10 @@ namespace WhatsYourIdea.Infrastructure.Extensions
         private static EfDbContext _context;
         private static HasherService _hasherService;
 
+        private static string loremTitle = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.";
+        private static string loremSubTitle = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
+        private static string loremText = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+
         public static IHost ApplyMigrations(this IHost host, bool isSeed)
         {
             using var scope = host.Services.CreateScope();
@@ -92,6 +96,7 @@ namespace WhatsYourIdea.Infrastructure.Extensions
 
         private static void AddIdeas()
         {
+            var random = new Random();
             var db = _context.Set<Idea>();
 
             var idea1 = CreateIdea(1);
@@ -103,23 +108,45 @@ namespace WhatsYourIdea.Infrastructure.Extensions
             var idea3 = CreateIdea(3);
             idea3.IsPrivate = false;
             idea3.IsVerifed = false;
+            var idea4 = CreateIdea(4);
+            idea4.IsPrivate = false;
+            idea4.IsVerifed = true;
+            var idea5 = CreateIdea(5);
+            idea5.IsPrivate = false;
+            idea5.IsVerifed = true;
+            var idea6 = CreateIdea(6);
+            idea6.IsPrivate = false;
+            idea6.IsVerifed = true;
+            var idea7 = CreateIdea(7);
+            idea7.IsPrivate = false;
+            idea7.IsVerifed = true;
+            var idea8 = CreateIdea(8);
+            idea8.IsPrivate = false;
+            idea8.IsVerifed = true;
 
-            db.AddRange(idea1, idea2, idea3);
+            db.AddRange(idea1, idea2, idea3, idea4, idea5, idea6, idea7, idea8);
             _context.SaveChanges();
             idea1.Hash = _hasherService.Encode(idea1.Id);
             idea2.Hash = _hasherService.Encode(idea2.Id);
             idea3.Hash = _hasherService.Encode(idea3.Id);
+            idea4.Hash = _hasherService.Encode(idea4.Id);
+            idea5.Hash = _hasherService.Encode(idea5.Id);
+            idea6.Hash = _hasherService.Encode(idea6.Id);
+            idea7.Hash = _hasherService.Encode(idea7.Id);
+            idea8.Hash = _hasherService.Encode(idea8.Id);
             _context.SaveChanges();
 
-            static Idea CreateIdea(int index)
+            Idea CreateIdea(int index)
             {
+                var rnd1 = random.Next(1, _context.Set<ApplicationUser>().Count() + 1);
+                var rnd2 = random.Next(_context.Set<Tag>().Count() + 1);
                 return new()
                 {
-                    Author = _context.Set<Author>().First(x => x.Id == 1),
-                    ShortDescription = $"short_{index}",
-                    FullDesctiption = $"full_{index}",
-                    Title = $"title_{index}",
-                    Tags = _context.Set<Tag>().ToList(),
+                    Author = _context.Set<Author>().First(x => x.Id == rnd1),
+                    ShortDescription = loremSubTitle,
+                    FullDesctiption = loremText,
+                    Title = loremTitle,
+                    Tags = _context.Set<Tag>().Take(rnd2).ToList(),
                 };
             }
         }
@@ -131,6 +158,7 @@ namespace WhatsYourIdea.Infrastructure.Extensions
             user1.UserProfile.Author = new Author();
             user1.UserProfile.UserName = "user_1";
             var user2 = CreateUser(2);
+            user2.UserProfile.Author = new Author();
             user2.UserProfile.UserName = "user_2";
             usermanager.CreateAsync(user1, "123").Wait();
             usermanager.CreateAsync(user2, "1234").Wait();

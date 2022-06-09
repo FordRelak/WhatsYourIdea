@@ -36,6 +36,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatsYourIdea.Common", "Wha
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlobalExceptionHandler", "WhatsYourIdea.Application.GlobalExceptionHandler\GlobalExceptionHandler.csproj", "{475AE84F-987D-4B30-9ACA-AA2FAA8BE7BB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{D2F92264-DFE1-44C7-97C0-0D98099D3D5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatsYourIdea.Web.Tests", "WhatsYourIdea.Web.Tests\WhatsYourIdea.Web.Tests.csproj", "{75D1B616-0AC7-4F89-9910-10B27A2878FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +90,10 @@ Global
 		{475AE84F-987D-4B30-9ACA-AA2FAA8BE7BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{475AE84F-987D-4B30-9ACA-AA2FAA8BE7BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{475AE84F-987D-4B30-9ACA-AA2FAA8BE7BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75D1B616-0AC7-4F89-9910-10B27A2878FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75D1B616-0AC7-4F89-9910-10B27A2878FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75D1B616-0AC7-4F89-9910-10B27A2878FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75D1B616-0AC7-4F89-9910-10B27A2878FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,6 +102,7 @@ Global
 		{E87B6783-CDF3-417C-864D-370CA029A0BD} = {DACFF631-F6E2-495D-BF85-630F260C0288}
 		{80F6AEC7-AEE2-4318-A760-E5196F9F4D42} = {DACFF631-F6E2-495D-BF85-630F260C0288}
 		{E2F35267-AAF0-48BD-9A70-832D7F8E406D} = {DACFF631-F6E2-495D-BF85-630F260C0288}
+		{75D1B616-0AC7-4F89-9910-10B27A2878FF} = {D2F92264-DFE1-44C7-97C0-0D98099D3D5D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A8FBF7F0-BD30-4F5F-9955-2E7AE8DDE5BF}

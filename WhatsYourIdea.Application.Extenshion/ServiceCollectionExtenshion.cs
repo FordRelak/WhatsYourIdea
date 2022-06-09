@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WhatsYourIdea.Applications.Auth;
@@ -34,7 +36,8 @@ namespace WhatsYourIdea.Application.Extension
 
         public static IServiceCollection AddApplicationAuth(this IServiceCollection services, IConfiguration configuration)
         {
-            services.ConfigureApplicationCookie(options =>
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
             {
                 options.LoginPath = "/account/login";
                 options.LoginPath = "/account/logout";
@@ -42,6 +45,12 @@ namespace WhatsYourIdea.Application.Extension
 
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromHours(2);
+
+                options.Events.OnRedirectToLogin = context =>
+                {
+                    context.Response.StatusCode = 401;
+                    return Task.CompletedTask;
+                };
             });
 
             services.AddScoped<AuthService>();

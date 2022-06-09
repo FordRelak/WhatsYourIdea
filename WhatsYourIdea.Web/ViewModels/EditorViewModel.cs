@@ -8,22 +8,29 @@ namespace WhatsYourIdea.Web.ViewModels
     {
         public string HashId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле")]
+        [Display(Name = "Заголовок")]
         public string Title { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле")]
+        [Display(Name = "Заголовок")]
         public string SubTitle { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательное поле")]
         [AllowHtml]
         public string Text { get; set; }
 
         [DataType(DataType.Upload)]
+        [Display(Name = "Баннер")]
         public IFormFile MainImage { get; set; }
 
         public IEnumerable<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> Tags { get; set; }
         public int[] TagIds { get; set; }
+
+        [Display(Name = "Новый тег")]
         public string NewTags { get; set; }
+
+        [Display(Name = "Идея приватная?")]
         public bool IsPrivate { get; set; }
     }
 }
