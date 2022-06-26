@@ -42,13 +42,13 @@ var app = builder.Build();
 if(enviroment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
-    app.ApplyMigrations(isSeed);
 }
 else
 {
     app.UseExceptionHandler("/Error");
     app.UseHsts();
 }
+app.ApplyMigrations(true);
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

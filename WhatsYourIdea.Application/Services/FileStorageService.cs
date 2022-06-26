@@ -30,7 +30,7 @@ namespace WhatsYourIdea.Applications.Services.Services
                 }
             }
 
-            return Path.Combine(Path.PathSeparator + _settings.IdeaImagesFolderName, newFileName);
+            return "/" + Path.Combine(_settings.IdeaImagesFolderName, newFileName);
         }
     }
 }

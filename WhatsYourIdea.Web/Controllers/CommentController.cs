@@ -25,7 +25,7 @@ namespace WhatsYourIdea.Web.Controllers
                 await _unitOfWorkService.CommentService.AddCommentToIdea(model.Hash, model.Text, User.Identity.Name);
             }
 
-            return RedirectToAction("Index", "Idea", new { ideaHash = model.Hash });
+            return RedirectToAction("Index", "Idea", new { hash = model.Hash });
         }
     }
 }

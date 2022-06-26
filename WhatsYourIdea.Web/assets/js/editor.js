@@ -13,7 +13,8 @@ $(document).ready(function () {
         toolbar: 'restoredraft | undo redo | blocks | ' +
             'bold italic backcolor | alignleft aligncenter ' +
             'alignright alignjustify | bullist numlist outdent indent | ' +
-            'removeformat | help'
+            'removeformat | help',
+        convert_urls: false
     });
     $(".js-save").on("click", function () {
         const content = tinymce.get('mytextarea').getContent();

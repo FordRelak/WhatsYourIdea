@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -6,22 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\bundles\plugins\**" />
-    <Compile Remove="wwwroot\bundles\skins\**" />
-    <Compile Remove="wwwroot\bundles\themes\**" />
-    <Content Remove="wwwroot\bundles\plugins\**" />
-    <Content Remove="wwwroot\bundles\skins\**" />
-    <Content Remove="wwwroot\bundles\themes\**" />
-    <EmbeddedResource Remove="wwwroot\bundles\plugins\**" />
-    <EmbeddedResource Remove="wwwroot\bundles\skins\**" />
-    <EmbeddedResource Remove="wwwroot\bundles\themes\**" />
-    <None Remove="wwwroot\bundles\plugins\**" />
-    <None Remove="wwwroot\bundles\skins\**" />
-    <None Remove="wwwroot\bundles\themes\**" />
+    <Compile Remove="wwwroot\ideafiles\**" />
+    <Content Remove="wwwroot\ideafiles\**" />
+    <EmbeddedResource Remove="wwwroot\ideafiles\**" />
+    <None Remove="wwwroot\ideafiles\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\ideafiles\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 

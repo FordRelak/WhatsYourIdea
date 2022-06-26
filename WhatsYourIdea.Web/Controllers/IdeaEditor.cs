@@ -47,7 +47,7 @@ namespace WhatsYourIdea.Web.Controllers
                 cancellationToken);
             return Ok(new
             {
-                Location = newFilePath
+                Location = newFilePath.Replace("\\","/")
             });
         }
 

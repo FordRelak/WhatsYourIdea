@@ -26,7 +26,7 @@ namespace WhatsYourIdea.Infrastructure.Extensions
             _serviceScope = scope;
             _context = context;
             context.Database.Migrate();
-            if(isSeed)
+            if(isSeed && !context.Users.Any())
             {
                 SeedData();
             }

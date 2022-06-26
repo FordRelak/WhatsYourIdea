@@ -27,7 +27,7 @@
             {
                 <div class="row mt-3">
                     <div class="col-12">
-                        <div class="main-img" style="background-image: url('/@Model.MainImagePath.Replace('\\','/')')">
+                        <div class="main-img" style="background-image: url('/@Model.MainImagePath.Replace('\\','/').Trim('/')')">
                         </div>
                     </div>
                 </div>
@@ -37,6 +37,14 @@
                 <div class="col-12">
                     <div class="main-text">
                         @Model.SubTitle
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-12">
+                    <div class="main-text">
+                        @Html.Raw(Model.Text)
                     </div>
                 </div>
             </div>
@@ -82,7 +90,7 @@
 
             <hr />
 
-            @if(User.Identity.IsAuthenticated)
+            @if(User.Identity.IsAuthenticated && !Model.IsPrivate)
             {
                 <div class="row mt-3">
                     <div class="col-12">
